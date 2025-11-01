@@ -1,0 +1,145 @@
+market_research_task:
+  description: >
+    Führe umfassende Marktforschung für {product_name} durch, um aktuelle Trends,
+    Chancen und Wettbewerb zum Stand {current_date} zu identifizieren. 
+    Recherchiere über die Produktbeschreibung: {product_description}
+    und die Zielgruppe: {target_audience}
+    
+    Verwende Web-Such-Tools, um aktuelle Informationen zu finden über:
+    - Den aktuellen Markt für AI-gestützte Excel-Automatisierung
+    - Hauptwettbewerber (z.B. Microsoft 365 Copilot, Zapier, Numerous AI, andere Excel-Tools)
+    - Kundenschmerzpunkte und Bedürfnisse
+    - Branchentrends und -entwicklungen
+    
+    Erstelle einen detaillierten Forschungsbericht mit:
+    - Branchen-Snapshot
+    - Identifizierte Kundenschmerzpunkte
+    - Liste der Hauptwettbewerber mit deren Stärken/Schwächen
+    - Marktchancen und Positionierungsempfehlungen
+  expected_output: >
+    Ein umfassender Marktforschungsbericht im Markdown-Format mit allen
+    oben genannten Abschnitten. Der Bericht sollte spezifische Informationen
+    enthalten, die aus aktuellen Web-Quellen stammen.
+  agent: head_of_marketing
+  output_file: resources/market_research.md
+
+build_marketing_strategy_task:
+  description: >
+    Entwickle eine detaillierte Marketing-Strategie für {product_name} basierend
+    auf dem Marktforschungsbericht. Die Strategie sollte auf die Zielgruppe
+    {target_audience} zugeschnitten sein und das Budget von {budget} berücksichtigen.
+    
+    Die Strategie sollte enthalten:
+    - Empfohlene Marketing-Kanäle (z.B. LinkedIn, X/Twitter, Content Marketing, etc.)
+    - Kern-Messaging und Positionierung
+    - Content-Typen und -Formate
+    - Grobe Budgetverteilung über Kanäle
+    - Erwartete KPIs und Erfolgsmetriken
+  expected_output: >
+    Eine vollständige Marketing-Strategie im Markdown-Format mit allen oben
+    genannten Komponenten. Die Strategie sollte datenbasiert und umsetzbar sein.
+  agent: head_of_marketing
+  context:
+    - market_research_task
+  output_file: resources/marketing_strategy.md
+
+build_content_calendar_task:
+  description: >
+    Erstelle einen detaillierten Content-Kalender für die kommenden Wochen basierend
+    auf der Marketing-Strategie. Der Kalender sollte Einträge für LinkedIn, X/Twitter
+    und optional Instagram/Reels enthalten.
+    
+    Für jeden Eintrag sollte definiert werden:
+    - Datum und Uhrzeit
+    - Kanal (LinkedIn, X/Twitter, Instagram, etc.)
+    - Thema/Inhalt
+    - Ziel des Posts (Bewusstsein, Engagement, Conversion, etc.)
+    - Verwandte Keywords oder Hashtags
+    
+    Plane mindestens 8-12 Posts über einen Zeitraum von 4-6 Wochen.
+  expected_output: >
+    Ein Content-Kalender im Markdown- oder JSON-Format mit allen geplanten Posts.
+    Jeder Eintrag sollte die oben genannten Informationen enthalten.
+  agent: content_creator_social
+  context:
+    - build_marketing_strategy_task
+  output_file: resources/drafts/content_calendar.md
+
+generate_social_posts_task:
+  description: >
+    Generiere tatsächliche Post-Entwürfe für jeden Eintrag im Content-Kalender.
+    Passe den Ton, die Länge und den Stil an jeden Kanal an:
+    
+    - LinkedIn: Professioneller Ton, längere Posts (bis 3000 Zeichen), strukturiert
+    - X/Twitter: Kurz und prägnant (280 Zeichen), witzig/engagierend, relevante Hashtags
+    - Instagram/Reels: Visuell-orientierte Beschreibungen, Hook, Call-to-Action
+    
+    Stelle sicher, dass jeder Post die Markenstimme von {product_name} widerspiegelt
+    und die Zielgruppe {target_audience} anspricht.
+  expected_output: >
+    Mehrere Post-Dateien:
+    - resources/drafts/linkedin_post_01.md, linkedin_post_02.md, etc.
+    - resources/drafts/twitter_post_01.txt, twitter_post_02.txt, etc.
+    - Optional: resources/drafts/reel_script_01.md, etc.
+    
+    Jede Datei sollte den vollständigen Post-Text mit Hashtags enthalten.
+  agent: content_creator_social
+  context:
+    - build_content_calendar_task
+  output_file: resources/drafts/social_posts/
+
+generate_blog_draft_task:
+  description: >
+    Schreibe einen Blog-Artikel-Entwurf für {product_name} basierend auf der
+    Marktforschung und Marketing-Strategie. Der Artikel sollte die Zielgruppe
+    {target_audience} ansprechen und folgende Elemente enthalten:
+    
+    - Eine fesselnde Einleitung, die das Problem adressiert
+    - Wertversprechen und Nutzen des Produkts
+    - Praktische Beispiele oder Use Cases
+    - Ein klarer Call-to-Action am Ende
+    
+    Der Artikel sollte zwischen 600-1200 Wörtern lang sein (oder als Demo-Version
+    100-300 Wörter). Integriere relevante SEO-Keywords natürlich in den Text.
+  expected_output: >
+    Ein vollständiger Blog-Artikel-Entwurf im Markdown-Format:
+    resources/drafts/blog_post_{product_name_lowercase}.md
+    
+    Der Artikel sollte strukturiert sein mit Überschriften, Absätzen und
+    einem klaren Fluss.
+  agent: content_writer_blog
+  context:
+    - market_research_task
+    - build_marketing_strategy_task
+  output_file: resources/drafts/blog_post_autosheetiq.md
+
+generate_seo_keywords_task:
+  description: >
+    Erstelle eine umfassende Keyword-Liste für {product_name} basierend auf der
+    Marktforschung. Die Liste sollte enthalten:
+    
+    - Produkt-Keywords: Direkte Keywords zu {product_name} und seinen Features
+    - Problem-Keywords: Keywords, die die Probleme der Zielgruppe beschreiben
+    - Wettbewerber-Keywords: Keywords zu identifizierten Wettbewerbern
+      (z.B. "Microsoft 365 Copilot", "Zapier Excel Automation", "Numerous AI")
+    
+    Gruppiere die Keywords nach Typ und sortiere sie nach Relevanz oder
+    Suchvolumen (falls bekannt).
+  expected_output: >
+    Eine strukturierte Keyword-Liste in resources/keywords.txt im Format:
+    
+    ## Produkt-Keywords
+    - keyword1
+    - keyword2
+    
+    ## Problem-Keywords
+    - problem keyword 1
+    - problem keyword 2
+    
+    ## Wettbewerber-Keywords
+    - competitor keyword 1
+    - competitor keyword 2
+  agent: seo_specialist
+  context:
+    - market_research_task
+  output_file: resources/keywords.txt
