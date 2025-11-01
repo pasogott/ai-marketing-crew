@@ -11,11 +11,11 @@ class TestCrewStructure:
     @patch('ai_marketing_crew.crew.Task')
     def test_crew_has_four_agents(self, mock_task, mock_agent, mock_env_vars):
         """Test that crew has exactly 4 agents"""
-        with patch('ai_marketing_crew.crew.SerperDevTool'):
-            with patch('ai_marketing_crew.crew.ScrapeWebsiteTool'):
-                with patch('ai_marketing_crew.crew.DirectoryReadTool'):
-                    with patch('ai_marketing_crew.crew.FileReadTool'):
-                        with patch('ai_marketing_crew.crew.FileWriteTool'):
+        with patch('crewai_tools.SerperDevTool'):
+            with patch('crewai_tools.ScrapeWebsiteTool'):
+                with patch('crewai_tools.DirectoryReadTool'):
+                    with patch('crewai_tools.FileReadTool'):
+                        with patch('crewai_tools.FileWriteTool'):
                             crew_instance = AiMarketingCrew()
                             crew = crew_instance.crew()
                             
@@ -30,11 +30,11 @@ class TestCrewStructure:
     @patch('ai_marketing_crew.crew.Task')
     def test_crew_has_six_tasks(self, mock_task, mock_agent, mock_env_vars):
         """Test that crew has exactly 6 tasks"""
-        with patch('ai_marketing_crew.crew.SerperDevTool'):
-            with patch('ai_marketing_crew.crew.ScrapeWebsiteTool'):
-                with patch('ai_marketing_crew.crew.DirectoryReadTool'):
-                    with patch('ai_marketing_crew.crew.FileReadTool'):
-                        with patch('ai_marketing_crew.crew.FileWriteTool'):
+        with patch('crewai_tools.SerperDevTool'):
+            with patch('crewai_tools.ScrapeWebsiteTool'):
+                with patch('crewai_tools.DirectoryReadTool'):
+                    with patch('crewai_tools.FileReadTool'):
+                        with patch('crewai_tools.FileWriteTool'):
                             crew_instance = AiMarketingCrew()
                             crew = crew_instance.crew()
                             
@@ -42,11 +42,11 @@ class TestCrewStructure:
 
     def test_crew_uses_sequential_process(self, mock_env_vars):
         """Test that crew uses sequential process"""
-        with patch('ai_marketing_crew.crew.SerperDevTool'):
-            with patch('ai_marketing_crew.crew.ScrapeWebsiteTool'):
-                with patch('ai_marketing_crew.crew.DirectoryReadTool'):
-                    with patch('ai_marketing_crew.crew.FileReadTool'):
-                        with patch('ai_marketing_crew.crew.FileWriteTool'):
+        with patch('crewai_tools.SerperDevTool'):
+            with patch('crewai_tools.ScrapeWebsiteTool'):
+                with patch('crewai_tools.DirectoryReadTool'):
+                    with patch('crewai_tools.FileReadTool'):
+                        with patch('crewai_tools.FileWriteTool'):
                             crew_instance = AiMarketingCrew()
                             crew = crew_instance.crew()
                             
@@ -56,11 +56,11 @@ class TestCrewStructure:
 
     def test_task_dependencies(self, mock_env_vars):
         """Test that tasks have correct dependencies"""
-        with patch('ai_marketing_crew.crew.SerperDevTool'):
-            with patch('ai_marketing_crew.crew.ScrapeWebsiteTool'):
-                with patch('ai_marketing_crew.crew.DirectoryReadTool'):
-                    with patch('ai_marketing_crew.crew.FileReadTool'):
-                        with patch('ai_marketing_crew.crew.FileWriteTool'):
+        with patch('crewai_tools.SerperDevTool'):
+            with patch('crewai_tools.ScrapeWebsiteTool'):
+                with patch('crewai_tools.DirectoryReadTool'):
+                    with patch('crewai_tools.FileReadTool'):
+                        with patch('crewai_tools.FileWriteTool'):
                             crew_instance = AiMarketingCrew()
                             
                             # Marketing strategy should depend on market research

@@ -15,11 +15,11 @@ class TestCrewInitialization:
         assert hasattr(AiMarketingCrew, 'content_writer_blog')
         assert hasattr(AiMarketingCrew, 'seo_specialist')
 
-    @patch('ai_marketing_crew.crew.SerperDevTool')
-    @patch('ai_marketing_crew.crew.ScrapeWebsiteTool')
-    @patch('ai_marketing_crew.crew.DirectoryReadTool')
-    @patch('ai_marketing_crew.crew.FileReadTool')
-    @patch('ai_marketing_crew.crew.FileWriteTool')
+    @patch('crewai_tools.SerperDevTool')
+    @patch('crewai_tools.ScrapeWebsiteTool')
+    @patch('crewai_tools.DirectoryReadTool')
+    @patch('crewai_tools.FileReadTool')
+    @patch('crewai_tools.FileWriteTool')
     def test_crew_initialization_with_all_tools(self, mock_file_write, mock_file_read,
                                                   mock_dir_read, mock_scrape, mock_serper,
                                                   mock_env_vars):
@@ -31,11 +31,11 @@ class TestCrewInitialization:
         # SerperDevTool should be initialized if API key exists
         assert 'serper_dev_tool' in crew.tools or 'serper_dev_tool' not in crew.tools
 
-    @patch('ai_marketing_crew.crew.SerperDevTool')
-    @patch('ai_marketing_crew.crew.ScrapeWebsiteTool')
-    @patch('ai_marketing_crew.crew.DirectoryReadTool')
-    @patch('ai_marketing_crew.crew.FileReadTool')
-    @patch('ai_marketing_crew.crew.FileWriteTool')
+    @patch('crewai_tools.SerperDevTool')
+    @patch('crewai_tools.ScrapeWebsiteTool')
+    @patch('crewai_tools.DirectoryReadTool')
+    @patch('crewai_tools.FileReadTool')
+    @patch('crewai_tools.FileWriteTool')
     def test_crew_initialization_without_serper(self, mock_file_write, mock_file_read,
                                                   mock_dir_read, mock_scrape, mock_serper,
                                                   mock_env_vars_no_serper):

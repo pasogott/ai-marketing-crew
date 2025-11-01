@@ -3,13 +3,21 @@ from pathlib import Path
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 from crewai.agents.agent_builder.base_agent import BaseAgent
-from crewai.tools import (
-    SerperDevTool,
-    ScrapeWebsiteTool,
-    DirectoryReadTool,
-    FileReadTool,
-    FileWriteTool,
-)
+try:
+    from crewai_tools import (
+        SerperDevTool,
+        ScrapeWebsiteTool,
+        DirectoryReadTool,
+        FileReadTool,
+        FileWriteTool,
+    )
+except ImportError:
+    # Fallback if crewai_tools is not available
+    SerperDevTool = None
+    ScrapeWebsiteTool = None
+    DirectoryReadTool = None
+    FileReadTool = None
+    FileWriteTool = None
 from typing import List
 
 # Erstelle resources/ Verzeichnis falls nicht vorhanden

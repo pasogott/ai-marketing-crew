@@ -9,11 +9,11 @@ class TestConfigurationLoading:
 
     def test_agents_config_exists(self, mock_env_vars):
         """Test that agents configuration is loaded"""
-        with patch('ai_marketing_crew.crew.SerperDevTool'):
-            with patch('ai_marketing_crew.crew.ScrapeWebsiteTool'):
-                with patch('ai_marketing_crew.crew.DirectoryReadTool'):
-                    with patch('ai_marketing_crew.crew.FileReadTool'):
-                        with patch('ai_marketing_crew.crew.FileWriteTool'):
+        with patch('crewai_tools.SerperDevTool'):
+            with patch('crewai_tools.ScrapeWebsiteTool'):
+                with patch('crewai_tools.DirectoryReadTool'):
+                    with patch('crewai_tools.FileReadTool'):
+                        with patch('crewai_tools.FileWriteTool'):
                             crew = AiMarketingCrew()
                             
                             # CrewBase should load agents_config

@@ -9,11 +9,11 @@ class TestCrewExecution:
 
     @pytest.mark.integration
     @pytest.mark.slow
-    @patch('ai_marketing_crew.crew.SerperDevTool')
-    @patch('ai_marketing_crew.crew.ScrapeWebsiteTool')
-    @patch('ai_marketing_crew.crew.DirectoryReadTool')
-    @patch('ai_marketing_crew.crew.FileReadTool')
-    @patch('ai_marketing_crew.crew.FileWriteTool')
+    @patch('crewai_tools.SerperDevTool')
+    @patch('crewai_tools.ScrapeWebsiteTool')
+    @patch('crewai_tools.DirectoryReadTool')
+    @patch('crewai_tools.FileReadTool')
+    @patch('crewai_tools.FileWriteTool')
     @patch('crewai.Crew.kickoff')
     def test_crew_can_be_initialized_for_execution(self, mock_kickoff, mock_file_write,
                                                      mock_file_read, mock_dir_read,
