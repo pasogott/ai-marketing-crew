@@ -19,7 +19,7 @@ class TestCrewInitialization:
     @patch('crewai_tools.ScrapeWebsiteTool')
     @patch('crewai_tools.DirectoryReadTool')
     @patch('crewai_tools.FileReadTool')
-    @patch('crewai_tools.FileWriteTool')
+    @patch('crewai_tools.FileWriterTool')
     def test_crew_initialization_with_all_tools(self, mock_file_write, mock_file_read,
                                                   mock_dir_read, mock_scrape, mock_serper,
                                                   mock_env_vars):
@@ -35,7 +35,7 @@ class TestCrewInitialization:
     @patch('crewai_tools.ScrapeWebsiteTool')
     @patch('crewai_tools.DirectoryReadTool')
     @patch('crewai_tools.FileReadTool')
-    @patch('crewai_tools.FileWriteTool')
+    @patch('crewai_tools.FileWriterTool')
     def test_crew_initialization_without_serper(self, mock_file_write, mock_file_read,
                                                   mock_dir_read, mock_scrape, mock_serper,
                                                   mock_env_vars_no_serper):

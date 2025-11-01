@@ -9,7 +9,7 @@ try:
         ScrapeWebsiteTool,
         DirectoryReadTool,
         FileReadTool,
-        FileWriteTool,
+        FileWriterTool,
     )
 except ImportError:
     # Fallback if crewai_tools is not available
@@ -17,7 +17,7 @@ except ImportError:
     ScrapeWebsiteTool = None
     DirectoryReadTool = None
     FileReadTool = None
-    FileWriteTool = None
+    FileWriterTool = None
 from typing import List
 
 # Erstelle resources/ Verzeichnis falls nicht vorhanden
@@ -33,6 +33,7 @@ class AiMarketingCrew():
 
     agents: List[BaseAgent]
     tasks: List[Task]
+    tools: dict = {}
 
     # Tools initialisieren (mit Fallback bei fehlenden API Keys)
     def _init_tools(self):
@@ -58,7 +59,7 @@ class AiMarketingCrew():
         try:
             tools["directory_read_tool"] = DirectoryReadTool(directory="resources")
             tools["file_read_tool"] = FileReadTool()
-            tools["file_write_tool"] = FileWriteTool()
+            tools["file_write_tool"] = FileWriterTool()
         except Exception as e:
             print(f"WARNUNG: File/Directory Tools konnten nicht initialisiert werden: {e}")
 
@@ -66,8 +67,10 @@ class AiMarketingCrew():
 
     def __init__(self):
         """Initialisiere Crew und Tools"""
-        super().__init__()
-        self.tools = self._init_tools()
+        # CrewBase wird durch @CrewBase decorator automatisch initialisiert
+        # Tools werden nach der CrewBase Initialisierung gesetzt
+        if not hasattr(self, 'tools') or not self.tools:
+            self.tools = self._init_tools()
 
     @agent
     def head_of_marketing(self) -> Agent:

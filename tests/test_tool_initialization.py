@@ -18,7 +18,7 @@ class TestToolInitialization:
                     mock_dir.return_value = Mock()
                     with patch('crewai_tools.FileReadTool') as mock_file_read:
                         mock_file_read.return_value = Mock()
-                        with patch('crewai_tools.FileWriteTool') as mock_file_write:
+                        with patch('crewai_tools.FileWriterTool') as mock_file_write:
                             mock_file_write.return_value = Mock()
                             
                             crew = AiMarketingCrew()
@@ -35,7 +35,7 @@ class TestToolInitialization:
                     mock_dir.return_value = Mock()
                     with patch('crewai_tools.FileReadTool') as mock_file_read:
                         mock_file_read.return_value = Mock()
-                        with patch('crewai_tools.FileWriteTool') as mock_file_write:
+                        with patch('crewai_tools.FileWriterTool') as mock_file_write:
                             mock_file_write.return_value = Mock()
                             
                             crew = AiMarketingCrew()

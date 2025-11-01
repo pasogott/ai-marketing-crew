@@ -15,7 +15,7 @@ class TestCrewStructure:
             with patch('crewai_tools.ScrapeWebsiteTool'):
                 with patch('crewai_tools.DirectoryReadTool'):
                     with patch('crewai_tools.FileReadTool'):
-                        with patch('crewai_tools.FileWriteTool'):
+                        with patch('crewai_tools.FileWriterTool'):
                             crew_instance = AiMarketingCrew()
                             crew = crew_instance.crew()
                             
@@ -34,7 +34,7 @@ class TestCrewStructure:
             with patch('crewai_tools.ScrapeWebsiteTool'):
                 with patch('crewai_tools.DirectoryReadTool'):
                     with patch('crewai_tools.FileReadTool'):
-                        with patch('crewai_tools.FileWriteTool'):
+                        with patch('crewai_tools.FileWriterTool'):
                             crew_instance = AiMarketingCrew()
                             crew = crew_instance.crew()
                             
@@ -46,7 +46,7 @@ class TestCrewStructure:
             with patch('crewai_tools.ScrapeWebsiteTool'):
                 with patch('crewai_tools.DirectoryReadTool'):
                     with patch('crewai_tools.FileReadTool'):
-                        with patch('crewai_tools.FileWriteTool'):
+                        with patch('crewai_tools.FileWriterTool'):
                             crew_instance = AiMarketingCrew()
                             crew = crew_instance.crew()
                             
@@ -60,7 +60,7 @@ class TestCrewStructure:
             with patch('crewai_tools.ScrapeWebsiteTool'):
                 with patch('crewai_tools.DirectoryReadTool'):
                     with patch('crewai_tools.FileReadTool'):
-                        with patch('crewai_tools.FileWriteTool'):
+                        with patch('crewai_tools.FileWriterTool'):
                             crew_instance = AiMarketingCrew()
                             
                             # Marketing strategy should depend on market research
