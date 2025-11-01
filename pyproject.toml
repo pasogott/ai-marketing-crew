@@ -1,0 +1,26 @@
+[project]
+name = "ai_marketing_crew"
+version = "0.1.0"
+description = "ai-marketing-crew using crewAI"
+authors = [{ name = "Pascal Schott", email = "pascal@calumba.at" }]
+requires-python = ">=3.11"
+dependencies = [
+    "crewai[tools]==1.2.1",
+    "python-dotenv>=1.0.0",
+    "pydantic>=2.0.0",
+]
+
+[project.scripts]
+ai_marketing_crew = "ai_marketing_crew.main:run"
+run_crew = "ai_marketing_crew.main:run"
+train = "ai_marketing_crew.main:train"
+replay = "ai_marketing_crew.main:replay"
+test = "ai_marketing_crew.main:test"
+run_with_trigger = "ai_marketing_crew.main:run_with_trigger"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.crewai]
+type = "crew"
