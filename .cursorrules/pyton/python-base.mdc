@@ -1,0 +1,339 @@
+---
+alwaysApply: true
+globs:
+    - "**/*.py"
+    - "**/pyproject.toml"
+    - "**/requirements*.txt"
+description: Python base rules for PEP8, uv project management, and standard/workspace project structures
+---
+
+rules:
+
+## Python Project Standards
+
+### Code Style and Standards
+
+-   **ALWAYS follow PEP 8 standards**
+
+    -   Use 4 spaces for indentation (no tabs)
+    -   Maximum line length: 79 characters for code, 72 for comments/docstrings
+    -   Use blank lines to separate top-level functions and classes
+    -   Use snake_case for function and variable names
+    -   Use PascalCase for class names
+    -   Use UPPERCASE for constants
+    -   Import statements: standard library, third-party, local (separated by blank lines)
+    -   Use absolute imports over relative imports when possible
+
+-   **Code formatting and linting**
+
+    -   Use `ruff` for linting and formatting Python code
+    -   Configure ruff in `pyproject.toml` or `ruff.toml`
+    -   Run `ruff format` for automatic formatting
+    -   Run `ruff check` for linting
+    -   Use type hints for all function parameters and return values
+    -   Use `mypy` or `pyright` for type checking
+
+### Project Management with UV
+
+-   **ALWAYS use `uv` from astral for Python project management**
+
+    -   Install uv: `curl -LsSf https://astral.sh/uv/install.sh | sh`
+    -   Use `uv` instead of `pip`, `pipenv`, `poetry`, or `venv`
+    -   Use `uv sync` to install dependencies
+    -   Use `uv add <package>` to add dependencies
+    -   Use `uv remove <package>` to remove dependencies
+    -   Use `uv run <command>` to run commands in the project environment
+    -   Define Python version in `pyproject.toml`: `requires-python = ">=3.13"`
+
+### Standard Project Structure
+
+-   **Standard project structure (single package/application):**
+
+```
+project-root/
+  .gitignore
+  pyproject.toml              # Project configuration
+  .venv/                      # Virtual environment (at root)
+  src/                        # Source code
+    {project-name}/           # Package name (matches project name)
+      __init__.py
+      module1.py
+      module2.py
+  tests/                      # Tests
+    test_module1.py
+    test_module2.py
+  README.md
+  docs/                       # Documentation
+```
+
+-   **Standard `pyproject.toml` structure:**
+
+```toml
+[project]
+name = "project-name"
+version = "0.1.0"
+description = "Project description"
+requires-python = ">=3.13"
+dependencies = [
+    "httpx",
+    "beautifulsoup4",
+    # Add dependencies here
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+```
+
+-   **Standard workflow:**
+
+    -   Create `pyproject.toml` at root
+    -   Create `src/{project-name}/` directory structure
+    -   Run `uv sync` to create virtual environment and install dependencies
+    -   Run `uv run python -m {project-name}.main` to execute code
+    -   Import from package: `from {project-name}.module import function`
+
+### UV Workspace Structure (Optional - Multi-App Projects)
+
+-   **For projects with multiple Python apps/packages, use UV workspaces**
+
+    -   Single virtual environment at root level for all packages
+    -   Shared dependencies defined in root `pyproject.toml`
+    -   Package-specific dependencies in each package's `pyproject.toml`
+    -   Internal packages referenced with `workspace = true` in `uv.sources`
+
+-   **Workspace project structure:**
+
+```
+project-root/
+  .gitignore
+  pyproject.toml              # Root workspace configuration
+  .venv/                      # Single virtual environment (at root)
+  services/                   # All Python packages/apps
+    core/                     # Internal shared package
+      pyproject.toml
+      src/
+        core/
+          __init__.py
+          news.py             # Shared code (e.g., fetch_headlines)
+    cli/                      # CLI application
+      pyproject.toml
+      src/
+        cli/
+          __init__.py
+          main.py
+    api/                      # FastAPI application
+      pyproject.toml
+      src/
+        api/
+          __init__.py
+          main.py
+    summarizer/               # Another internal package
+      pyproject.toml
+      src/
+        summarizer/
+          __init__.py
+          summarize.py
+```
+
+-   **Root `pyproject.toml` structure:**
+
+```toml
+[project]
+name = "workspace-root"
+requires-python = ">=3.13"
+dependencies = [
+    "python-dotenv",
+    # Shared dependencies used by multiple packages
+]
+
+[tool.uv.workspace]
+members = ["services/*"]
+
+[tool.uv.sources]
+core = { workspace = true }
+summarizer = { workspace = true }
+# Add other internal packages here
+```
+
+-   **Package `pyproject.toml` structure (e.g., `services/api/pyproject.toml`):**
+
+```toml
+[project]
+name = "api"
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "core",  # Internal package dependency
+    # Package-specific dependencies
+]
+```
+
+-   **Internal package `pyproject.toml` (e.g., `services/core/pyproject.toml`):**
+
+```toml
+[project]
+name = "core"
+dependencies = [
+    "httpx",
+    "beautifulsoup4",
+    # Dependencies specific to this internal package
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+```
+
+### Workspace Usage Guidelines
+
+-   **When to use UV workspaces:**
+
+    -   Multiple related Python apps in one repository
+    -   Shared dependencies between projects
+    -   Internal packages that need to be reused
+    -   Need for single virtual environment and unified dependency management
+    -   Want to avoid code duplication across packages
+
+-   **When NOT to use UV workspaces:**
+
+    -   Single script or single application
+    -   Package to be released to PyPI independently
+    -   Completely unrelated apps (better to split into separate repos)
+    -   No shared code or dependencies
+
+-   **Workspace workflow:**
+
+    -   Run `uv sync` at root level to sync all packages
+    -   Run commands: `uv run --package cli python -m cli.main`
+    -   Or navigate to package: `cd packages/cli && uv run python -m cli.main`
+    -   Internal packages are automatically available once added to `uv.sources`
+    -   Import internal packages: `from core.news import fetch_headlines`
+
+-   **Dependency organization:**
+
+    -   **Root level `pyproject.toml`**: Dependencies shared by multiple packages
+    -   **Package level `pyproject.toml`**: Dependencies specific to that package
+    -   **Internal package `pyproject.toml`**: Dependencies needed only by that internal package
+
+### Package Structure Best Practices
+
+-   **Standard project: Use `src/` layout**
+
+    -   All source code in `src/{project-name}/`
+    -   Tests in separate `tests/` directory at project root
+    -   `__init__.py` files to make directories packages
+    -   Package name matches project name from `pyproject.toml`
+
+-   **Standard project structure example:**
+
+```
+project-root/
+  pyproject.toml
+  src/
+    myproject/
+      __init__.py
+      main.py
+      utils/
+        __init__.py
+        helpers.py
+  tests/
+    test_main.py
+    test_helpers.py
+```
+
+-   **Workspace internal package structure:**
+
+```
+services/
+  core/
+    pyproject.toml
+    src/
+      core/
+        __init__.py
+        module1.py
+        module2.py
+    tests/
+      test_module1.py
+```
+
+-   **Workspace application package structure:**
+
+```
+services/
+  api/
+    pyproject.toml
+    src/
+      api/
+        __init__.py
+        main.py
+        routes/
+          __init__.py
+          headlines.py
+    tests/
+      test_routes.py
+```
+
+### Development Workflow
+
+-   **Setting up a standard project:**
+
+    1.  Create `pyproject.toml` at root
+    2.  Create `src/{project-name}/` directory
+    3.  Add `__init__.py` and source files
+    4.  Run `uv sync` to create virtual environment and install dependencies
+    5.  Run `uv run python -m {project-name}.main` to test
+
+-   **Setting up a workspace (for multi-app projects):**
+
+    1.  Create root `pyproject.toml` with `[tool.uv.workspace]` section
+    2.  Create `services/` directory
+    3.  Add packages under `services/`
+    4.  Configure each package with its own `pyproject.toml`
+    5.  Add internal packages to `tool.uv.sources` in root `pyproject.toml`
+    6.  Run `uv sync` at root level
+
+-   **Adding a new package to workspace:**
+
+    1.  Create package directory under `services/`
+    2.  Create `pyproject.toml` for the package
+    3.  Create `src/{package_name}/` structure
+    4.  Add to root `tool.uv.sources` if it's an internal package
+    5.  Run `uv sync` to include it in workspace
+
+-   **Running and testing:**
+
+    -   `uv sync` - Install/sync all dependencies
+    -   `uv run --package <package-name> <command>` - Run command in specific package
+    -   `uv add --package <package-name> <dependency>` - Add dependency to specific package
+    -   `uv add --group dev <dependency>` - Add development dependency
+
+### Type Checking and Testing
+
+-   **Type hints**
+
+    -   Use type hints for all function signatures
+    -   Use `typing` module for complex types
+    -   Use `from __future__ import annotations` for forward references
+    -   Run `mypy` or `pyright` for type checking
+
+-   **Testing**
+
+    -   Use `pytest` for testing
+    -   Tests in `tests/` directory at package level
+    -   Use descriptive test names: `test_function_name_scenario`
+    -   Use fixtures for common setup
+
+### Never Do
+
+-   ❌ Use `pip` or `venv` directly (use `uv` instead)
+-   ❌ Use workspace structure for single package/application projects (use standard `src/` structure)
+-   ❌ Create multiple virtual environments for related packages (use workspace only when needed)
+-   ❌ Duplicate shared code across packages (create internal packages in workspace)
+-   ❌ Put all dependencies at root when they're package-specific
+-   ❌ Skip PEP 8 style guidelines
+-   ❌ Skip type hints in function signatures
+-   ❌ Mix tabs and spaces for indentation
+-   ❌ Create packages without `src/` layout structure
+-   ❌ Forget to add internal packages to `tool.uv.sources` in workspace projects
+-   ❌ Use workspace structure when not managing multiple related apps

@@ -1,0 +1,240 @@
+---
+alwaysApply: true
+---
+
+rules:
+
+## Documentation Standards
+
+### Documentation Structure
+
+-   **ALWAYS create and maintain a `docs/` folder**
+
+    -   Place documentation at project root: `docs/`
+    -   Organize documentation logically by topic, feature, or module
+    -   Use clear naming conventions: lowercase, hyphens for spaces (e.g., `api-endpoints.md`, `deployment-guide.md`)
+    -   Include a main `README.md` in the `root/` folder that serves as an index
+
+-   **Documentation must be version-controlled**
+    -   All documentation files must be committed to Git
+    -   Documentation changes should be part of the same commit or PR as code changes
+    -   Keep documentation in sync with codebase
+
+### Root README.md Structure
+
+-   **Root `README.md` MUST follow a consistent hierarchy and structure**
+
+    -   **GitHub Badges (at the top)**
+
+        -   Place GitHub badges/shields at the very top of the README
+        -   Include relevant badges (build status, version, license, downloads, etc.)
+        -   Example: `[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)]`
+        -   Use shields.io or GitHub Actions badges
+
+    -   **Required sections in order:**
+
+        1.  **Title/Project Name** (H1 heading)
+        2.  **Description - What is it?** (`## About` or `## What is this?`)
+            -   Clear explanation of what the project is
+            -   Primary purpose and main functionality
+            -   Brief overview of key features
+        3.  **Problem Statement - What problem does it solve?** (`## Problem` or `## Why?`)
+            -   Clearly state the problem this project addresses
+            -   Explain the pain points it solves
+            -   Context: why was this project created?
+        4.  **Installation/Usage - How to use it?** (`## Installation` / `## Quick Start` / `## Usage`)
+            -   Installation instructions (step-by-step)
+            -   Configuration requirements
+            -   Quick start examples
+            -   Basic usage examples
+        5.  **Documentation Index - Where to find more?** (`## Documentation` or `## Further Reading`)
+            -   Links to detailed documentation in `docs/` folder
+            -   Organized list of documentation topics
+            -   Quick navigation to specific docs
+            -   Example structure:
+                ```markdown
+                -   [Architecture](docs/architecture.md)
+                -   [API Reference](docs/api/)
+                -   [Development Guide](docs/development/)
+                -   [Deployment](docs/deployment/)
+                ```
+
+    -   **Optional sections (can be added after core sections):**
+
+        -   Contributing
+        -   License
+        -   Credits/Authors
+        -   Roadmap
+        -   Changelog link
+
+    -   **README.md structure template:**
+
+        ```markdown
+        # Project Name
+
+        [![Badge1](...)](...)
+        [![Badge2](...)](...)
+
+        ## About
+
+        [Clear description of what this project is and what it does]
+
+        ## Problem
+
+        [Explanation of the problem this project solves]
+
+        ## Installation
+
+        [Step-by-step installation instructions]
+
+        ## Quick Start
+
+        [Basic usage examples]
+
+        ## Documentation
+
+        -   [Architecture](docs/architecture.md)
+        -   [API Reference](docs/api/)
+        -   [Setup Guide](docs/setup/)
+        -   [Development](docs/development/)
+        -   [Deployment](docs/deployment/)
+
+        ## Contributing
+
+        [Contributing guidelines or link to CONTRIBUTING.md]
+
+        ## License
+
+        [License information]
+        ```
+
+    -   **Consistency requirements:**
+        -   Use consistent heading hierarchy (H1 for title, H2 for main sections)
+        -   Keep formatting consistent across all README files
+        -   Use clear, concise language
+        -   Include code examples where helpful
+        -   Keep README.md updated when project changes
+
+### What to Document
+
+-   **Architecture and Design Decisions**
+
+    -   System architecture diagrams and explanations
+    -   Design patterns used
+    -   Technology choices and rationale
+    -   Database schema documentation
+    -   API specifications and endpoints
+
+-   **Setup and Installation**
+
+    -   Environment setup instructions
+    -   Dependency installation steps
+    -   Configuration requirements
+    -   Environment variables documentation
+
+-   **Development Guidelines**
+
+    -   Code style and conventions
+    -   Contribution guidelines
+    -   Testing strategies
+    -   Deployment procedures
+
+-   **API Documentation**
+
+    -   Endpoint descriptions with request/response examples
+    -   Authentication requirements
+    -   Error codes and handling
+    -   Rate limits and constraints
+
+-   **Important Changes and Features**
+    -   New features and their usage
+    -   Breaking changes (with migration guides)
+    -   Configuration changes
+    -   Security updates
+    -   Performance improvements
+
+### Documentation Update Requirements
+
+-   **ALWAYS update documentation when making changes**
+
+    -   Update relevant documentation files in the same commit as code changes
+    -   If adding a new feature, document it immediately
+    -   If changing existing behavior, update all affected documentation
+    -   If removing functionality, mark it as deprecated or remove documentation
+
+-   **Documentation update checklist:**
+    -   [ ] New features documented
+    -   [ ] API changes documented
+    -   [ ] Configuration changes documented
+    -   [ ] Breaking changes documented with migration guide
+    -   [ ] Examples updated if needed
+    -   [ ] README files updated
+    -   [ ] Architecture diagrams updated (if applicable)
+
+### Documentation Format
+
+-   **Use Markdown format** (`.md` or `.mdc` files)
+
+    -   Consistent formatting and structure
+    -   Use proper heading hierarchy (H1, H2, H3)
+    -   Include code examples with syntax highlighting
+    -   Use lists, tables, and diagrams where helpful
+
+-   **Documentation style:**
+    -   Write clear, concise, and accurate descriptions
+    -   Use examples to illustrate concepts
+    -   Keep documentation up-to-date and accurate
+    -   Write for your audience (developers, users, operators)
+    -   Include "Why" explanations, not just "How"
+
+### Documentation Maintenance
+
+-   **Regular documentation reviews**
+
+    -   Review documentation during code reviews
+    -   Flag outdated documentation as tech debt
+    -   Update documentation when refactoring code
+    -   Remove documentation for deprecated features
+
+-   **Documentation in Pull Requests**
+    -   Include documentation changes in PR description if significant
+    -   Link to documentation in code comments when referencing external docs
+    -   Request documentation review for complex changes
+
+### Documentation Location Standards
+
+```
+project-root/
+  README.md # Main Documentation File and Documentation index
+  docs/
+    architecture.md           # System architecture
+    api/                      # API documentation
+      endpoints.md
+      authentication.md
+    setup/                    # Setup guides
+      installation.md
+      configuration.md
+    development/              # Development guides
+      contributing.md
+      testing.md
+    deployment/               # Deployment docs
+      production.md
+      staging.md
+    changelog/                # Change logs
+      CHANGELOG.md
+```
+
+### Documentation Commit Messages
+
+-   Use `docs:` prefix for documentation-only commits
+-   Include issue number: `docs: #123 - Update API endpoint documentation`
+-   Combine with code changes when documenting new features
+
+### Never Do
+
+-   ❌ Skip documentation for new features
+-   ❌ Leave outdated documentation in place
+-   ❌ Document only in code comments (use proper docs folder)
+-   ❌ Forget to update documentation when changing code
+-   ❌ Commit code changes without updating related documentation
+-   ❌ Use ambiguous or unclear language in documentation

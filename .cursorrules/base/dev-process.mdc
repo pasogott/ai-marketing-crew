@@ -1,0 +1,136 @@
+---
+alwaysApply: true
+---
+
+rules:
+
+## Development Workflow Process
+
+### Pre-Development Planning
+
+-   **ALWAYS think first, plan, then code**
+
+    -   Analyze the problem or requirement thoroughly
+    -   Read the existing documentation in /docs
+    -   Break down work into small, manageable tasks
+    -   Create a task list or todo items before starting implementation
+    -   One task at a time: complete → commit → move to next
+
+-   **NEVER work directly on protected branches**
+    -   Protected branches: `main`, `development`, `production`
+    -   All work must happen on feature branches
+    -   Branch naming convention: `feature/issue-{number}-{short-description}` or `bugfix/issue-{number}-{short-description}`
+
+### Git Workflow - Issue-Based Development
+
+Follow this strict workflow for every change:
+
+1. **Issue Creation**
+
+    - New idea or problem → Create a GitHub issue OR use existing issue
+    - Document the problem, requirements, and acceptance criteria
+    - Assign issue number and labels
+
+2. **Branch Creation**
+
+    - One branch per issue: `git checkout -b feature/issue-{number}-{description}`
+    - Branch from the latest `development` or `main` branch
+    - Never create branches from other feature branches unless absolutely necessary
+
+3. **Development**
+
+    - Work on ONE issue at a time per branch
+    - Address ONLY what the issue describes
+    - Make small, incremental commits with clear messages
+    - Keep commits focused and atomic
+
+4. **Commit Process**
+
+    - Commit message format: `{type}: {issue-number} - {description}`
+    - Types: `feat`, `fix`, `refactor`, `docs`, `test`, `chore`
+    - Example: `feat: #123 - Add user authentication endpoint`
+    - Commit frequently with meaningful messages
+
+5. **Testing**
+
+    - Write and run tests before pushing
+    - Ensure all existing tests pass
+    - Add new tests for new functionality
+    - Verify no regressions introduced
+
+6. **Push and Pull Request**
+    - Push branch: `git push origin feature/issue-{number}-{description}`
+    - Create Pull Request (PR) / Merge Request (MR)
+    - Link PR to issue: `Closes #123` or `Fixes #123` in PR description
+    - Wait for code review and CI/CD checks
+    - Address review feedback on the same branch
+    - Merge only after approval and all checks pass
+
+### Pre-Commit Hooks
+
+-   **Pre-commit hooks MUST be configured and active**
+    -   Use `pre-commit` framework or similar
+    -   Run automated checks before each commit:
+        -   Code formatting (Prettier, Black, etc.)
+        -   Linting (ESLint, Ruff, etc.)
+        -   Type checking (TypeScript, mypy, etc.)
+        -   Test execution (unit tests, if fast)
+        -   Security scanning (if configured)
+    -   Prevent commits that fail checks
+    -   Configuration file: `.pre-commit-config.yaml` or similar
+    -   All team members must have pre-commit hooks installed
+
+### Commit Message Guidelines
+
+-   Use conventional commits format
+-   Include issue number in commit message
+-   Write clear, descriptive messages
+-   Keep first line under 72 characters
+-   Use present tense ("Add feature" not "Added feature")
+-   Format:
+
+    ```
+    {type}({scope}): #{issue-number} - {subject}
+
+    {body (optional)}
+
+    {footer (optional)}
+    ```
+
+### Branch Management
+
+-   Delete merged branches after PR is merged
+-   Keep feature branches up-to-date with base branch (rebase if needed)
+-   Avoid long-lived feature branches
+-   Squash commits in PR if requested during review
+
+### Code Review Requirements
+
+-   All code changes require PR/MR review
+-   Minimum one approval before merging
+-   Reviewers must check:
+    -   Code quality and style
+    -   Test coverage
+    -   Issue requirements met
+    -   No breaking changes (unless documented)
+    -   Documentation updated if needed
+
+### Emergency Fixes
+
+-   For critical production fixes:
+    -   Still follow branch-based workflow
+    -   Create `hotfix/issue-{number}-{description}` branch
+    -   Fast-track PR with clear justification
+    -   Merge to both `main` and `development` branches
+
+### Never Do
+
+-   ❌ Commit directly to `main`, `development`, or `production`
+-   ❌ Skip issue creation for new features or bug fixes
+-   ❌ Work on multiple issues in one branch
+-   ❌ Push without running tests locally
+-   ❌ Skip code review process
+-   ❌ Force push to shared branches
+-   ❌ Commit broken code or failing tests
+-   ❌ Commit without pre-commit hooks running
+-   ❌ Use vague commit messages
