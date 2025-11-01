@@ -1,0 +1,210 @@
+---
+alwaysApply: true
+---
+
+rules:
+
+## Software Design Process
+
+### 01 - Define What You're Building
+
+-   **ALWAYS start by defining the problem and solution clearly**
+
+    -   What is the software application or feature?
+    -   Who is it intended for?
+    -   What problem does the software solve?
+    -   How is it going to work?
+    -   What are the main concepts involved and how are they related?
+
+-   **Use Domain-Driven Design (DDD) principles**
+
+    -   Focus on early implementation and crude prototypes based on domain models
+    -   Design and implementation in parallel - don't spend all time on perfect design before coding
+    -   Start implementation early to understand technical limitations
+    -   Remove unnecessary complexity ("distilling the model") - simplify to focus on core functionality
+    -   Remember: the best refactoring is removing code
+
+-   **Follow "zoom out and zoom in" approach**
+
+    -   **Zoom out**: Think broadly about the software and what it entails
+    -   Spend more time in conceptual stage as experience grows
+    -   **Zoom in**: Determine what to build first, what can be delayed
+    -   Identify low-hanging fruit and optimal build order
+    -   Define MVP (Minimum Viable Product) from business perspective
+
+### 02 - Design the User Experience
+
+-   **ALWAYS design for users, not for yourself**
+
+    -   Define main user stories (happy flows + alternative flows)
+    -   Consider impact on overall interface structure when adding features
+    -   Impact on menus, navigation, and overall organization
+    -   Provide UI mockups or wireframes as part of user stories
+
+-   **Keep it simple and user-focused**
+
+    -   Only build what users actually need - verify before implementing
+    -   Avoid over-generic solutions that users won't use
+    -   Remember: UI changes are time-consuming (development, documentation, communication, bug fixes)
+    -   Sometimes introduce extra concepts to clarify how system works for users
+
+### 03 - Understand the Technical Needs
+
+-   **Define technical implementation details**
+
+    -   Database changes: new tables, fields
+    -   How software technically works: algorithms, important libraries
+    -   Overall design: required classes, design patterns
+    -   Third-party software dependencies
+
+-   **Document technical design**
+
+    -   Use UML or Mermaid diagrams to show main classes and system integration
+    -   Prefer text-based diagrams (Mermaid) for better version control
+    -   Describe specific edge cases (e.g., network connection errors)
+
+-   **Code Design Principles**
+
+    -   **Use functions over classes**
+
+        -   Functional code is typically simpler than object-oriented code
+        -   Especially in Python or Rust with good functional programming support
+        -   Introduce classes when you need to pass too many arguments or need object representation
+
+    -   **Keep things small and simple**
+
+        -   True for modules, functions, methods, and instance variables
+        -   Smaller code is easier to read and test
+
+    -   **Separate creating from using**
+
+        -   Don't create an object and immediately call methods on it
+        -   Create objects outside functions and pass as arguments
+        -   Makes code easier to test
+
+    -   **Use abstraction**
+        -   Python: Use ABCs or Protocols
+        -   Rust: Use Traits
+        -   Helps remove dependencies and reduces breaking changes
+
+### 04 - Implement Testing and Security Measures
+
+-   **Testing strategy**
+
+    -   Define specific coverage goals for unit tests
+    -   Determine test types needed (unit, regression, end-to-end)
+    -   Check potential side-effects on other application areas (for new features)
+    -   Consider security impact and need for security audit
+
+-   **Develop tester's mindset**
+
+    -   Design code that is easy to test
+    -   Assume every piece of code potentially breaks something
+    -   Consider edge cases by default
+    -   Organize code so edge cases are handled automatically
+    -   Design interfaces, classes, and methods to guide users to happy flow
+
+-   **Type safety examples**
+
+    -   Use Enums instead of string arguments for roles/permissions
+    -   Rely on typing system to handle edge cases
+    -   Languages with strict type checking (TypeScript, Rust) detect problems early
+    -   Python: Develop good sense of script usage; use type hints
+    -   Rust: Learning curve forces edge case handling before shipping
+
+-   **Coding standards**
+
+    -   Settle on coding standard and use supporting tools
+    -   Python: Use automatic formatter (Black, Ruff)
+    -   Follow best practices for your language
+    -   Keep code simple - don't try to be too fancy
+
+-   **Test development philosophy**
+
+    -   Write tests assuming you'll change things during development
+    -   Don't focus on 100% coverage no matter what
+    -   Focus on basic version to evaluate if it's what users want
+    -   Assume every line of code might be thrown away - don't get attached
+
+### 05 - Plan the Work
+
+-   **Estimation and milestones**
+
+    -   Estimate development time for software or feature
+    -   Break down into steps with time estimates
+    -   Define developmental milestones and order
+    -   Identify required vs. optional parts (Definition of Done)
+
+-   **Risk management**
+
+    -   Identify main risk factors first
+    -   More risk factors = reserve more time for surprises
+    -   Consider alternative routes if something isn't feasible
+    -   Example: Integration features have risk in integration code, not UI
+
+-   **Migration planning**
+
+    -   Identify any migration scripts needed
+    -   Plan for data migration if required
+    -   Consider backward compatibility
+
+### 06 - Identify Ripple Effects
+
+-   **ALWAYS consider work outside of coding**
+
+    -   What documentation needs to be updated?
+    -   Do you need to communicate something to existing users?
+    -   Are there external systems that need updates? (payment provider, email marketing, sales system)
+    -   Consider processes around software development, release, and customer success
+
+-   **Impact assessment**
+
+    -   Think about ripple effects when working on software
+    -   Larger software companies move slowly because ripple effects are huge
+    -   Properly handle ripple effects to avoid last-minute surprises
+
+### 07 - Understand the Broader Context
+
+-   **Document limitations and future possibilities**
+
+    -   What are limitations of current design?
+    -   What are possible extensions for the future?
+    -   Other considerations (budget, resources, timeline)
+
+-   **Moonshot ideas**
+
+    -   Include "moonshot" ideas: "It would be really cool if the software could also do X"
+    -   Puts you in open mindset that leads to new insights
+    -   Sometimes epiphanies during development allow adding moonshot ideas
+
+-   **Long-term improvement**
+
+    -   Knowing limitations helps improve software in long term
+    -   Provides immediate starting point for future changes
+    -   Balance between current needs and future extensibility
+
+## Key Design Principles Summary
+
+-   **Most important phase**: Understanding the problem you're trying to solve
+-   **Don't skip**: Conceptual/design phase before implementation
+-   **Design and implementation**: Work in tandem, not sequentially
+-   **Simplicity**: Remove unnecessary complexity, focus on core
+-   **User-first**: Design for users, verify needs before building
+-   **Testability**: Design code that's easy to test from the start
+-   **Type safety**: Use type systems to handle edge cases automatically
+-   **Small and focused**: Keep modules, functions, and classes small
+-   **Abstraction**: Use interfaces/protocols/traits to reduce dependencies
+-   **Ripple effects**: Always consider documentation, communication, external systems
+
+## Never Do
+
+-   ❌ Skip the problem definition phase
+-   ❌ Spend all time on perfect design before implementing
+-   ❌ Build features without verifying user needs
+-   ❌ Create over-generic solutions that users won't use
+-   ❌ Write code without considering testability
+-   ❌ Ignore edge cases in design
+-   ❌ Forget about ripple effects (documentation, communication)
+-   ❌ Get too attached to code you write
+-   ❌ Use string arguments where Enums would be safer
+-   ❌ Skip testing strategy planning

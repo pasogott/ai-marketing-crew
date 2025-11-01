@@ -1,0 +1,36 @@
+---
+alwaysApply: true
+---
+
+rules:
+
+-   goal: "Write clean, well-documented, and maintainable code"
+-   prefer:
+    -   "TypeScript over JavaScript"
+    -   "Python with type hints and modern best practices"
+    -   "Small, testable functions"
+-   avoid:
+    -   "Hardcoded values"
+    -   "Undocumented changes"
+-   style: "Follow ESLint and Prettier conventions"
+-   python:
+    -   "Always use uv from astral (https://github.com/astral-sh/uv) for Python project management"
+    -   "Use uv workspaces when managing multiple related Python projects"
+    -   "Always include ruff for linting and formatting Python code"
+    -   "Configure ruff in pyproject.toml or ruff.toml with appropriate rules"
+    -   "Use uv to manage dependencies, virtual environments, and project setup"
+-   edits:
+    -   "Always edit only small, focused code sections at a time"
+    -   "Make incremental changes rather than large refactorings in a single edit"
+    -   "Break down larger changes into multiple smaller, manageable edits"
+-   typing:
+    -   "Always prefer explicit typing when possible"
+    -   "Use TypeScript types, interfaces, and type annotations extensively"
+    -   "Avoid 'any' type and prefer specific types or generics"
+    -   "Add type annotations to function parameters, return values, and variables when they improve clarity"
+-   language:
+    -   "All code must be in English: comments, variable names, function names, class names, documentation, error messages, and all other code elements"
+    -   "Always respond in English, regardless of the user's language"
+    -   "Naming conventions must follow English conventions (camelCase, PascalCase, snake_case, etc.)"
+    -   "All constants must always be in UPPERCASE (e.g., MAX_SIZE, API_KEY, DEFAULT_TIMEOUT)"
+    -   "All code comments and documentation strings must be written in English"

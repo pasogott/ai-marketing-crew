@@ -1,0 +1,49 @@
+---
+description: WCAG compliance and accessibility best practices
+globs: *.vue, *.jsx, *.tsx, *.html, *.php
+---
+
+# Accessibility Standards
+
+Ensures WCAG compliance and accessibility best practices.
+
+## Rule Details
+
+-   **Name:** accessibility_standards
+
+-   **Description:** Enforce accessibility standards and WCAG compliance
+
+## Filters
+
+-   file extension pattern: `"\\.(vue|jsx|tsx|html|php|css|scss|sass)$" # Expanded to include CSS files`
+
+## Enforcement Checks
+
+-   Conditions:
+    -   pattern `<img[^>]+(?!alt=)[^>]*>` – Images must have alt attributes for screen readers.
+    -   pattern `aria-[a-z]+=\"\"` – ARIA attributes should not be empty; provide meaningful values.
+    -   pattern `<button[^>]*>(?![^<]*[^\\s])[^<]*</button>` – Buttons should have meaningful, descriptive content.
+    -   pattern `<a[^>]*href=\"#[^\"]*\"[^>]*>(?![^<]*<svg)[^<]*</a>` – Links with href='#' should either be removed or have an aria-label for context.
+    -   pattern `<input[^>]+type=\"(text|email|password|search|tel|url)\"[^>]*>` – negated `aria-label|aria-labelledby|title` – Form inputs should include an aria-label or aria-labelledby attribute for better screen reader support.
+    -   pattern `<video[^>]*>(?!<track)[^<]*</video>` – Videos should include captions for accessibility.
+
+## Suggestions
+
+-   Guidance:
+    **Accessibility Best Practices:**
+-   **Heading Hierarchy:** Use headings (h1 to h6) in a logical order to structure content.
+-   **Keyboard Navigation:** Ensure all interactive elements are accessible via keyboard.
+-   **Semantic HTML:** Favor semantic elements like <nav>, <article>, <section>, and <aside> for better structure comprehension.
+-   **Color Contrast:** Check color contrast ratios meet WCAG guidelines (4.5:1 for normal text, 7:1 for large text).
+-   **Skip Navigation Links:** Provide 'skip to main content' links for keyboard users to bypass repetitive navigation.
+-   **Focus Management:** Ensure focus indicators are visible and manage focus for modal dialogs or dynamic content changes.
+-   **Form Labels:** Associate labels with form controls using the 'for' attribute or wrap controls with <label>.
+-   **Descriptive Links:** Use descriptive text for links, avoiding generic phrases like "click here."
+-   **Touch Targets:** Ensure touch target sizes are large enough (at least 44x44 pixels) for mobile users.
+-   **Timeouts:** Avoid or provide options to extend time limits where possible, or warn users before session expiry.
+-   **Language Attribute:** Set the lang attribute on the <html> element to indicate the primary language of the page.
+
+## Metadata
+
+-   Priority: high
+-   Version: 1.2

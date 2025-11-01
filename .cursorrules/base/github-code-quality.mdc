@@ -1,0 +1,87 @@
+---
+alwaysApply: true
+---
+
+# GitHub Code Quality
+
+## Rules for Code Quality and Development Practices
+
+### 1. Verify Information
+
+**Pattern:** `(?i)\b(assume|assumption|guess|speculate)\b`
+**Message:** Always verify information before presenting it. Do not make assumptions or speculate without clear evidence.
+
+### 2. File-by-File Changes
+
+**Pattern:** `// MULTI-FILE CHANGE:`
+**Message:** Make changes file by file and give me a chance to spot mistakes.
+
+### 3. No Apologies
+
+**Pattern:** `(?i)\b(sorry|apologize|apologies)\b`
+**Message:** Never use apologies in comments or documentation.
+
+### 4. No Understanding Feedback
+
+**Pattern:** `(?i)\b(understand|understood|got it)\b`
+**Message:** Avoid giving feedback about understanding in comments or documentation.
+
+### 5. No Whitespace Suggestions
+
+**Pattern:** `(?i)\b(whitespace|indentation|spacing)\b`
+**Message:** Don't suggest whitespace changes unless explicitly requested.
+
+### 6. No Summaries
+
+**Pattern:** `(?i)\b(summary|summarize|overview)\b`
+**Message:** Don't summarize changes made; focus on the specific changes.
+
+### 7. No Inventions
+
+**Pattern:** `(?i)\b(suggest|recommendation|propose)\b`
+**Message:** Don't invent changes other than what's explicitly requested.
+
+### 8. No Unnecessary Confirmations
+
+**Pattern:** `(?i)\b(make sure|confirm|verify|check)\b`
+**Message:** Don't ask for confirmation of information already provided in the context.
+
+### 9. Preserve Existing Code
+
+**Pattern:** `(?i)\b(remove|delete|eliminate|destroy)\b`
+**Message:** Don't remove unrelated code or functionalities. Pay attention to preserving existing structures.
+
+### 10. Single Chunk Edits
+
+**Pattern:** `(?i)\b(first|then|next|after that|finally)\b`
+**Message:** Provide all edits in a single chunk instead of multiple-step instructions or explanations for the same file.
+
+### 11. No Implementation Checks
+
+**Pattern:** `(?i)\b(make sure|verify|check|confirm) (it's|it is|that) (correctly|properly) implemented\b`
+**Message:** Don't ask the user to verify implementations that are visible in the provided context.
+
+### 12. No Unnecessary Updates
+
+**Pattern:** `(?i)\b(update|change|modify|alter)\b.*\bno changes\b`
+**Message:** Don't suggest updates or changes to files when there are no actual modifications needed.
+
+### 13. Provide Real File Links
+
+**Pattern:** `(?i)\b(file|in)\b.*\b(x\.md)\b`
+**Message:** Always provide links to the real files, not x.md.
+
+### 14. No Previous x.md Consideration
+
+**Pattern:** `(?i)\b(previous|earlier|last)\b.*\bx\.md\b`
+**Message:** Do not consider any previous x.md files in your memory. Complain if the contents are the same as previous runs.
+
+### 15. No Current Implementation
+
+**Pattern:** `(?i)\b(current|existing)\s+(implementation|code)\b`
+**Message:** Don't show or discuss the current implementation unless specifically requested.
+
+### 16. Check x.md Content
+
+**Pattern:** `(?i)\b(file|content|implementation)\b`
+**Message:** Remember to check the x.md file for the current file contents and implementations.
